@@ -1,6 +1,6 @@
 (ns user
   (:require [cemerick.austin.repls :refer (browser-connected-repl-js)]
-            [net.cgrand.enlive-html :as enlive]
+            [hiccup.core :refer (html)]
             [compojure.route :refer (resources)]
             [compojure.core :refer (GET defroutes)]
             [ring.adapter.jetty]
@@ -13,9 +13,9 @@
   "In order to have a REPL connected to our app, we need to add a script tag
    that includes the client-side part of the REPL that talks to the REPL server."
   [file-name]
-  (enlive/sniptest (slurp (io/resource (str file-name ".html")))
-                   [:body] (enlive/append
-                            (enlive/html [:script (browser-connected-repl-js)]))))
+  (html [:html [:body 
+                [:script {:src "/app.js"}] 
+                [:script (browser-connected-repl-js)]]]))
 
 ;; Serve all files from resources/public as is. Serve the index page with the
 ;; REPL connected. In order to connect a REPL to any page, you must make sure the

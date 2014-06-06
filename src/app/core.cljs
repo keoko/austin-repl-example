@@ -1,3 +1,3 @@
 (ns app.core)
 
-(js/alert "Hey!")
+(js/alert "Hey!") 
